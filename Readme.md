@@ -32,9 +32,9 @@ the *Hardware_Schematics/* folder.
 **Python (Gateway)**
 
 Install dependencies via terminal:
-
-*pip install -r requirements.txt*
-
+```bash
+pip install -r requirements.txt
+```
 **Arduino (Nodes)**
 
 Ensure the following libraries are installed in your Arduino IDE:
@@ -72,25 +72,29 @@ in smart_energy_consumption/ios/Runner/.
 
 **Hardware & Gateway:**
 
-1.  **Flash** the Arduinos with the respective *".ino" *files.
+1.  **Flash** the Arduinos with the respective ".ino" files.
 
 2.  **Start the MQTT Broker** on the Raspberry Pi.
 
 3.  **Run the Gateway**:
-
-> python3 gateway_smart_home.py
-
+```python
+python3 gateway_smart_home.py
+```
 **Mobile Dashboard:**
 
 Navigate to the app directory:
 
-*cd smart_energy_consumption*
-
+```python
+cd smart_energy_consumption
+```
 Install the Flutter dependencies:
 
-*flutter pub get*
-
+```python
+flutter pub get
+```
 Run the application (ensure an emulator or physical device is
 connected):
 
-*flutter run*
+```python
+flutter run
+```
