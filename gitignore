@@ -1,0 +1,39 @@
+
+# SECRETS & FIREBASE
+service_account.json
+google-services.json
+GoogleService-Info.plist
+.env
+
+
+# PYTHON (Gateway)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+
+# ARDUINO (Firmware)
+build/
+*.hex
+*.elf
+*.bin
+
+
+# FLUTTER / DART (App)
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+/smart_energy_consumption/build/
+/smart_energy_consumption/.flutter-plugins
+/smart_energy_consumption/.flutter-plugins-dependencies
+
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
