@@ -1,0 +1,10 @@
+pandas
+numpy
+tensorflow
+paho-mqtt
+joblib
+requests
+google-auth
+RPi.GPIO
+pyserial
+ebyte-lora-e220-rpi
