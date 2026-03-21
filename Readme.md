@@ -1,7 +1,6 @@
 **Smart Home IoT & Predictive Energy Modeling**
 
-This repository contains the full source code and hardware
-specifications for an integrated Smart Home ecosystem featuring **Edge
+This repository contains the full source code for an integrated Smart Home ecosystem featuring **Edge
 Computing**, **Multi-protocol Networking (Zigbee, LoRa, BLE)**,
 and **Predictive AI**.
 
@@ -14,12 +13,11 @@ and **Predictive AI**.
 
 -   *Smart_energy_consumption/*: Flutter dashboard source code.
 
--   *Hardware_Schematics/*: Wiring diagrams for all modules.
 
 **1. Hardware Setup**
 
-Connect the sensors and actuators as detailed in
-the *Hardware_Schematics/* folder.
+Connect the sensors and actuators as illustrated in
+the Report.
 
 -   **Indoor Nodes:** Arduino + BME280 + TSL2561 + PIR + XBee.
 
