@@ -16,7 +16,7 @@ and **Predictive AI**.
 **1. Hardware Setup**
 
 Connect the sensors and actuators as illustrated in
-the Report.
+the Report and in the Hardware Schematics pictures.
 
 -   **Indoor Nodes:** Arduino + BME280 + TSL2561 + PIR + XBee.
 
