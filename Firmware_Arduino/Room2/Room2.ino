@@ -148,7 +148,7 @@ void loop(void) {
       Serial.println("Movement detected");
       
       // Send Motion to Gateway
-      String packetMotion = "Motion_R1 = 1";
+      String packetMotion = "Motion_R2 = 1";
       Xbee.println(packetMotion); 
       Serial.print("Sent: ");
       Serial.println(packetMotion);
@@ -156,7 +156,7 @@ void loop(void) {
       // Turn on the light only if is dark inside
       if (event.light < 400) {
         digitalWrite(LED_PIN, HIGH);
-        String packetLight = "Light_R1 = 1";
+        String packetLight = "Light_R2 = 1";
         Xbee.println(packetLight); 
         Serial.print("Sent: "); //Debug
         Serial.println(packetLight);
@@ -181,13 +181,13 @@ void loop(void) {
       Serial.println("Movement ended");
 
       // Send message of No Motion
-      String packetMotion = "Motion_R1 = 0";
+      String packetMotion = "Motion_R2 = 0";
       Xbee.println(packetMotion);
       Serial.print("Sent: ");
       Serial.println(packetMotion);
 
       digitalWrite(LED_PIN, LOW);  // Turns LED OFF
-      String packetLight = "Light_R1 = 0";
+      String packetLight = "Light_R2 = 0";
       Xbee.println(packetLight);
       Serial.print("Sent: ");
       Serial.println(packetLight);
@@ -259,7 +259,7 @@ void parseCommand(String command) {
   command.trim();  
   command.toLowerCase();
 
-  // Room ID Verification ("r1" or "room1")
+  // Room ID Verification ("r2" or "room2")
   if (command.indexOf("r2") == -1 && command.indexOf("room2") == -1) {
     return;
   }
