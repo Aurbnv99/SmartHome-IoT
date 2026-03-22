@@ -7,10 +7,9 @@ and **Predictive AI**.
 **Project Structure**
 
 -   *Gateway_Python/*: Core engine running on Raspberry Pi 5.
-
 -   *Firmware_Arduino/*: Code for Zigbee (Rooms 1 & 2) and LoRa (Garage)
     nodes.
-
+-	*Hardware_Schematics/*: Wiring diagrams for all modules.
 -   *Smart_energy_consumption/*: Flutter dashboard source code.
 
 
