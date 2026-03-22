@@ -22,7 +22,7 @@ long unsigned int count;
 int valPIR = 0;
 int calibrationTime = 2;        // the calibration time for the sensor (10-60 seconds)
 long unsigned int lowIn;         // time when the sensor outputs a low pulse
-long unsigned int pause = 5000;  // the number of milliseconds the output must be low
+long unsigned int pause = 2000;  // the number of milliseconds the output must be low
 // it is assumed that there is no movement
 boolean lockLow = true;
 boolean takeLowTime;
@@ -50,7 +50,7 @@ void setup() {
   c = e220ttl.getConfiguration();
   // It's important get configuration pointer before all other operation
   Configuration configuration = *(Configuration*)c.data;
-  Serial.println(c.status.getResponseDescription());
+  //Serial.println(c.status.getResponseDescription());
   Serial.println(c.status.code);
 
   printParameters(configuration);
@@ -98,16 +98,20 @@ void loop() {
 
       String command = rc.data;
       command.toLowerCase();
-
+      
+      e220ttl.sendFixedMessage(0, 1, 23, "ack"); 
+      Serial.println(">> Sent ACK to Gateway");
+      delay(300);
       // If it's an ACK, we ignore it in the main loop (handled by the send function)
       if (command.indexOf("ack") >= 0) {
          Serial.println("ACK received outside cycle (late?)");
       }
 
-      if (command.indexOf("r3") || command.indexOf("room3") >= 0 ) {
+      if (command.indexOf("r3") >= 0 || command.indexOf("room3") >= 0 ) {
         if (command.indexOf("light") >= 0) {
           if (command.indexOf("off") >= 0) {
             digitalWrite(LED_PIN, LOW);
+            //Serial.println("debugluce");
             Serial.println(" --> LIGHT OFF <-- ");
             // QoS MODIFICATION: Confirm command execution with retry
             sendFixedMessageWithRetry(0, 1, 23, "Light_R3 = 0"); //Back command to Gateway [OFF]
@@ -119,6 +123,7 @@ void loop() {
           } 
         }
       }
+      command = "";
     } else {
       Serial.println(rc.status.getResponseDescription());
       Serial.println("Error");
@@ -151,11 +156,12 @@ void loop() {
 
 
   //********************************************// PIR + LIGHT
-valPIR = digitalRead(PIR_PIN);  // reads the state of the PIR sensor
+  valPIR = digitalRead(PIR_PIN);  // reads the state of the PIR sensor
   if (valPIR == HIGH) {
     digitalWrite(LED_PIN, HIGH);  // Turns LED ON
     if (lockLow) {
       lockLow = false;
+      //Serial.println("debugPIR");
 
       Serial.println("---");
       Serial.println("Movement detected");
@@ -185,6 +191,7 @@ valPIR = digitalRead(PIR_PIN);  // reads the state of the PIR sensor
     // if the sensor is low for more than the indicated pause, we assume there are no more movements
     if (!lockLow && millis() - lowIn > pause) {
       // ensures this block of code is executed again only after
+      Serial.println("ciao");
       lockLow = true;              // a new sequence of movements has been detected
       digitalWrite(LED_PIN, LOW);  // Turns LED OFF
       Serial.println("Movement ended ");
@@ -224,7 +231,7 @@ void sendFixedMessageWithRetry(byte ADDH, byte ADDL, byte CHAN, String message) 
 
     // Actual transmission
     ResponseStatus rs = e220ttl.sendFixedMessage(ADDH, ADDL, CHAN, message);
-    Serial.println(rs.getResponseDescription());
+    //Serial.println(rs.getResponseDescription());
 
     mySerial.flush();
 
@@ -253,7 +260,7 @@ void sendFixedMessageWithRetry(byte ADDH, byte ADDL, byte CHAN, String message) 
       Serial.println(">> No ACK received. Timeout.");
       attempt++;
       if (attempt <= MAX_RETRIES) {
-        Serial.println(">> Retrying in 500ms...");
+        Serial.println(">> Retrying in 2 seconds...");
         delay(500); // Brief pause before next attempt
       } else {
         Serial.println(">> ERROR: Maximum retries reached. Message LOST.");
