@@ -10,7 +10,7 @@ and **Predictive AI**.
 -   *Firmware_Arduino/*: Code for Zigbee (Rooms 1 & 2) and LoRa (Garage)
     nodes.
 -	*Hardware_Schematics/*: Wiring diagrams for all modules.
--   *Smart_energy_consumption/*: Flutter dashboard source code.
+-   *Smart_Energy_Consumption.zip*: Flutter dashboard source code.
 
 
 **1. Hardware Setup**
@@ -82,7 +82,7 @@ python3 gateway_smart_home.py
 Navigate to the app directory:
 
 ```python
-cd smart_energy_consumption
+cd Mobile_App
 ```
 Install the Flutter dependencies:
 
