@@ -51,8 +51,23 @@ def init_lora(mqtt_client):
         code = lora_module.begin()
         print(f"[LORA] Connected to {LORA_PORT}. Initialization Status: {ResponseStatusCode.get_description(code)}")
 
+        # Fetch module configuration
+        # print("[LORA] Fetching module configuration...")
+        # conf_code, configuration = lora_module.get_configuration()
+        # if conf_code == ResponseStatusCode.SUCCESS:
+        #     print("[LORA] Current Configuration:")
+        #     for key, value in vars(configuration).items():
+        #         if hasattr(value, '__dict__'):
+        #             print(f"   {key}:")
+        #             for sub_key, sub_value in vars(value).items():
+        #                 print(f"      {sub_key}: {sub_value}")
+        #         else:
+        #             print(f"   {key}: {value}")
+        # else:
+        #     print(f"[LORA] Failed to fetch config: {ResponseStatusCode.get_description(conf_code)}")
+            
         # Start the listening thread
-        t = threading.Thread(target=_read_loop, daemon=True)
+        t = threading.Thread(target=read_loop, daemon=True)
         t.start()
 
     except Exception as e:
@@ -204,6 +219,40 @@ def handle_incoming(data):
                 mqtt_client_ref.publish(TOPIC_STATUS, json.dumps(payload))
                 #print(f"[MQTT STATUS UPDATE] {payload}") ## Debug
             return
-    
+        
+        elif "Motion" in data:
+            state = None
+            target_room = None
+
+            # Identify the room
+            if "R3" in data:
+                target_room = "room3"
+            
+            # Parse state (0 = NOMOTION, 1 = MOTION)
+            if " = " in data:
+                parts = data.split(" = ")
+                if len(parts) >= 2:
+                    state = "MOTION" if parts[1].strip() == "1" else "NOMOTION"
+
+            if target_room and state:
+                payload = {
+                    "room": target_room,
+                    "motion": state
+                }
+                mqtt_client_ref.publish(TOPIC_STATUS, json.dumps(payload))
+                #print(f"[MQTT STATUS UPDATE] {payload}") ## Debug
+                return
+        
+        elif "Code Received" in data:
+            payload = {
+                "room": "garage",
+                "event": "code_received",
+                "status": "confirmed",
+                "timestamp": time.time()
+            }
+            mqtt_client_ref.publish(TOPIC_STATUS, json.dumps(payload))
+            #print(f"[MQTT EVENT] Code Received") ## Debug
+            return
+        
     except (ValueError, IndexError) as e:
         print(f"[LORA PARSE ERROR] {e} | Raw data: {data}")
