@@ -9,7 +9,6 @@ and **Predictive AI**.
 -   *Gateway_Python/*: Core engine running on Raspberry Pi 5.
 -   *Firmware_Arduino/*: Code for Zigbee (Rooms 1 & 2) and LoRa (Garage)
     nodes.
--	*Hardware_Schematics/*: Wiring diagrams for all modules.
 -   *Smart_Energy_Consumption.zip*: Flutter dashboard source code.
 
 
@@ -20,9 +19,9 @@ the Report and in the Hardware Schematics pictures.
 
 -   **Indoor Nodes:** Arduino + BME280 + TSL2561 + PIR + XBee.
 
--   **Outdoor Node:** Arduino + LoRa E220 + ESP32 (BLE).
+-   **Outdoor Node:** Arduino + ESP32 (BLE) + LoRA/GPS Arduino Shield v1.3 (HAT).
 
--   **Gateway:** Raspberry Pi 5 + XBee Adapter + LoRa Module.
+-   **Gateway:** Raspberry Pi 5 + XBee Adapter.
 
 **2. Software Requirements**
 
@@ -40,7 +39,7 @@ Ensure the following libraries are installed in your Arduino IDE:
 
 -   Adafruit TSL2561 by Adafruit
 
--   EByte LoRa E220 library by Renzo Mischianti
+-   IBM LMIC Framework by IBM (v1.5.1)
 
 Ensure the following boards are installed in your Arduino IDE:
 
